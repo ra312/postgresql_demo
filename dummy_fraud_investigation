@@ -1,0 +1,65 @@
+CREATE TABLE accounts(
+JE_ID serial PRIMARY KEY,
+ACCOUNT_DR integer NOT NULL,
+ACCOUNT_CR integer NOT NULL,
+SUMM integer NOT NULL,
+REVERSED integer NOT NULL,
+USER_ID integer NOT NULL,
+DATA integer NOT NULL,
+DATE_DOC integer NOT NULL,
+APPROVER_ID varchar(256) NOT NULL,
+JOB_ID integer NOT NULL)
+;
+
+INSERT INTO  accounts (
+	ACCOUNT_DR,
+	ACCOUNT_CR,
+	SUMM,
+	REVERSED,
+	USER_ID,
+	DATA,
+	DATE_DOC,
+	APPROVER_ID,
+	JOB_ID
+)
+SELECT
+	random()	::	integer,
+	random()	::	integer,
+	random()	::	float,
+	random()	::	integer,
+	random()	::	integer,
+	random()	::	integer,
+	random()	::	integer,
+	random()	::	varchar(256),
+	random()	::	integer
+FROM generate_series(1, 5) s(i);
+
+SELECT * FROM accounts;
+
+CREATE TABLE users(
+	USER_ID integer,
+	NAME text,
+	LOGIN text,
+	JOB_TITLE text,
+	HIRED_DATE integer,
+	DISCHARGED_DATE integer
+);
+
+INSERT INTO users (
+	USER_ID,
+	NAME,
+	LOGIN,
+	JOB_TITLE,
+	HIRED_DATE,
+	DISCHARGED_DATE
+)
+SELECT
+	random() :: integer,
+	left(md5(i::text), 10),
+	md5(random()::text),
+	md5(random()::text),
+	random() :: integer,
+	random() :: integer
+FROM generate_series(1,5) s(i);
+
+SELECT * FROM accounts;	 
